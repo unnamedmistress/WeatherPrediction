@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Application</title>
+    <link rel="stylesheet" type="text/css" href="/assets/style.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="min-100-vh flex-column">
+    <header class="p-5 text-center text-white bg-primary">
+      <h1>Weather Dashboard</h1>
+    </header>
+    <main class="m-5 text-align-center">
+        <div class="row m-0 d-block d-md-flex">
+            <section class="col-12 col-md-3">
+                <form id="search-form">
+                    <h2>Search for a City:</h2>
+                    <div id="error-container" class="error-msg"></div>
+                    <input type="text" id="city-search" placeholder="Enter a City Name" class="w-100 mb-2">
+                    <button type="submit" class="w-100 mb-3 btn btn-secondary">Search</button>
+                </form>
+                <div id="search-container"></div>
+            
+            </section>
+            <section class="col-12 col-md-9">
+                <div id="current-weather" class="p-3 mb-2">
+                    <h2 id="current-heading">Current Weather</h2>
+                    <div class="row">
+                        <div class="data-container col-4" id="current-data">
+                            <div id="temp">Temp: </div>
+                            <div id="wind">Wind: </div>
+                            <div id="humid">Humidity: </div>
+                            <div id="uvi">UV Index: </div>
+                        </div>
+                        <div class="col-4" id="spacer"></div>
+                        <div id="current-icon" class="col-4"></div>
+                    </div>
+                </div>
+                <div id="forecast" class="p-3">
+                    <h2 class="d-block">5-Day Forecast</h2>
+                    <div class="row justify-content-around d-block d-xl-flex mr-0">
+                        <div id="card1" class="text-center d-none col m-2 p-0">
+                            <div class="card-body">
+                                <div id="card1-title" class="card-title"></div>
+                                <img src="" id="card0-icon" class="card-icon"></img>
+                                <div id="card0-temp"></div>
+                                <div id="card0-wind"></div>
+                                <div id="card0-humid"></div>
+                            </div>
+                        </div>
+                        <div id="card2" class="text-center d-none col m-2 p-0">
+                            <div class="card-body">
+                                <div id="card2-title" class="card-title"></div>
+                                <img src="" id="card1-icon" class="card-icon"></img>
+                                <div id="card1-temp"></div>
+                                <div id="card1-wind"></div>
+                                <div id="card1-humid"></div>
+                            </div>
+                        </div>
+                        <div id="card3" class="text-center d-none col m-2 p-0">
+                            <div class="card-body">
+                                <div id="card3-title" class="card-title"></div>
+                                <img src="" id="card2-icon" class="card-icon"></img>
+                                <div id="card2-temp"></div>
+                                <div id="card2-wind"></div>
+                                <div id="card2-humid"></div>
+                            </div>
+                        </div>
+                        <div id="card4" class="text-center d-none col m-2 p-0">
+                            <div class="card-body">
+                                <div id="card4-title" class="card-title"></div>
+                                <img src="" id="card3-icon" class="card-icon"></img>
+                                <div id="card3-temp"></div>
+                                <div id="card3-wind"></div>
+                                <div id="card3-humid"></div>
+                            </div>
+                        </div>
+                        <div id="card5" class="text-center d-none col m-2 p-0">
+                            <div class="card-body">
+                                <div id="card5-title" class="card-title"></div>
+                                <img src="" id="card4-icon" class="card-icon"></img>
+                                <div id="card4-temp"></div>
+                                <div id="card4-wind"></div>
+                                <div id="card4-humid"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="/assets/script.js"></script>
+  </body>
+</html>
