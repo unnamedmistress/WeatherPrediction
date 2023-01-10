@@ -23,15 +23,26 @@ function getCity (event) {
     }}
 submitBtn.addEventListener('click', getCity);
 
-function storedCities(cityName) {
-    cities.push(cityName);
-    localStorage.setItem("cityButtons", JSON.stringify(cities));
-    let storedCities = JSON.parse(localStorage.getItem("cityButtons"));
-    storedCities.forEach(function(cityName) {
-      buttonsHTML += `<button>${cityName}</button>`;
+let storedCities2 = JSON.parse(localStorage.getItem("cityButtons")) || []
+    if (storedCities2.length) {
+        buttonsHTML = '';
+      storedCities2.forEach(function(cityName) {
+        buttonsHTML += `<button>${cityName}</button>`;
+      });
+      document.querySelector(".city").innerHTML = buttonsHTML;
+    }
+    document.querySelector(".city").addEventListener('click', function(event) {
+      if (event.target.tagName === 'BUTTON') {
+        getLat(event.target.innerHTML);
+      }
     });
-    document.querySelector(".city").innerHTML = buttonsHTML;
-  }
+
+    function storedCities(cityName) {
+        if(!cities.includes(cityName)){
+            cities.push(cityName);
+            localStorage.setItem("cityButtons", JSON.stringify(cities));
+        }
+    }
 function getLat(cityName) {
     
     fetch(`http://api.openweathermap.org/geo/1.0/direct?appid=${key}&q=${cityName}`
@@ -54,26 +65,32 @@ function getWeather(lat,lon){
     return response.json();
   })
   .then(function (weather) {
-  
-    let date = weather.list[0].dt_txt
+  let forecastDiv = document.querySelector('.card-title')
+  forecastDiv.innerHTML = '';
     //getting the Icon and make an image with it..
     
     for (let i = 1; i < 5; i++) {
-        let date = weather.list[i].dt_txt;
-        
-        document.querySelector(`#card${i}`).append(`Date: ${date}`);
-        document.querySelector(`#card${i}`).style.fontWeight = 'bold';
-      
-        let temp = weather.list[i].main.temp;
-        document.querySelector(`#card${i}-temp`).append(`Temp: ${temp}`);
-       
-      
-        let humidity = weather.list[i].main.humidity;
-        document.querySelector(`#card${i}-humid`).append(`Humidity: ${humidity}`);
-      
-      
-        let wind = weather.list[i].wind.speed;
-        document.querySelector(`#card${i}-wind`).append(`Wind Speed: ${wind}`);
+        let forecast = weather.list[i];
+
+        let date = forecast.dt_txt;
+        let dateElement = document.createElement("p");
+        dateElement.innerHTML = `Date: ${date}`;
+        forecastDiv.appendChild(dateElement);
+
+        let temp = forecast.main.temp;
+        let tempElement = document.createElement("p");
+        tempElement.innerHTML = `Temperature: ${temp}`;
+        forecastDiv.appendChild(tempElement);
+
+        let humidity = forecast.main.humidity;
+        let humidElement = document.createElement("p");
+        humidElement.innerHTML = `Humidity: ${humidity}`;
+        forecastDiv.appendChild(humidElement);
+
+        let wind = forecast.wind.speed;
+        let windElement = document.createElement("p");
+        windElement.innerHTML = `Wind: ${wind}`;
+        forecastDiv.appendChild(windElement);
        
       
         let iconData = weather.list[i].weather[0].icon;
@@ -93,15 +110,28 @@ function getDailyWeather(lat,lon){
       return response.json();
     })
     .then(function (dailyweather) {
+        let currentDiv = document.querySelector('#current-data');
+       currentDiv.innerHTML = '';
   console.log(dailyweather);
   let ctemp = dailyweather.main.temp;
-  document.querySelector(`#temp`).append(` ${ctemp}`);
+  let tempElement = document.createElement("p");
+  tempElement.innerHTML = `Temperature: ${ctemp}`;
+  currentDiv.appendChild(tempElement);
+  
   let cwind = dailyweather.wind.speed;
-  document.querySelector(`#wind`).append(` ${cwind}`);
+  let windElement = document.createElement("p");
+  windElement.innerHTML = `Wind: ${cwind}`;
+  currentDiv.appendChild(windElement);
+  
   let chumidity = dailyweather.main.humidity;
-  document.querySelector(`#humid`).append(` ${chumidity}`);
+  let humidElement = document.createElement("p");
+  humidElement.innerHTML = `Humidity: ${chumidity}`;
+  currentDiv.appendChild(humidElement);
+  
   let high = dailyweather.main.temp_max;
-  document.querySelector(`#high`).append(` ${high}`);
+  let highElement = document.createElement("p");
+  highElement.innerHTML = `High: ${high}`;
+  currentDiv.appendChild(highElement);
   let ciconData = dailyweather.weather[0].icon;
        console.log(ciconData);
   const iconBaseUrl = "http://openweathermap.org/img/wn/";
@@ -109,16 +139,3 @@ document.querySelector(`#current-icon`).src = `${iconBaseUrl}${ciconData}@2x.png
         
    });
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
