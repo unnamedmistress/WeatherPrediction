@@ -10,6 +10,8 @@
     /* 1 */
     -webkit-text-size-adjust: 100%;
     /* 2 */
+    background-color: #000000;
+    color: white;
   }
   
   /* Sections
@@ -26,6 +28,7 @@
    */
   main {
     display: block;
+    color:white;
   }
   
   /**
@@ -51,7 +54,13 @@
     overflow: visible;
     /* 2 */
   }
-  
+  #current-weather{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: left;
+    width: 100%;
+  }
   /**
    * 1. Correct the inheritance and scaling of font size in all browsers.
    * 2. Correct the odd `em` font sizing in all browsers.
