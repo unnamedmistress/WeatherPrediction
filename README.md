@@ -12,4 +12,4 @@ The getWeather function uses the Fetch API to send another GET request to the Op
 The storedCities function saves the searched city to the localStorage and pushes it to an array and also create and appends buttons to the page, with each button representing a previously searched city, that when clicked will call the getLat function with the city name as the parameter.
 
 # Try it out  https://unnamedmistress.github.io/WeatherPrediction/
-![screenshot](/assets/Screenshot%202023-01-10%20211053.png)
+![screenshot](assets/Screenshot%202023-01-10%20211053.png)
