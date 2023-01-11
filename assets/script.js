@@ -54,7 +54,7 @@ function storedCities(cityName) {
 
 function getLat(cityName) {
     
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?appid=${key}&q=${cityName}`
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?appid=${key}&q=${cityName}`
 )
   .then(function (response) {
     return response.json();
@@ -68,7 +68,7 @@ function getLat(cityName) {
 
 function getWeather(lat,lon){
   console.log(lat,lon);
-  fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=imperial`
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=imperial`
 )
   .then(function (response) {
     return response.json();
