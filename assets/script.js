@@ -87,14 +87,10 @@ function getWeather(lat,lon){
           let forecast = weather.list[i];
           let forecastDate = new Date(forecast.dt_txt);
           let cardDiv = document.querySelector(`#card${i+1}`)
-          if(forecastDate.getUTCDate() !== currentDate.getUTCDate()){
               let date = dayjs(forecast.dt_txt).format('MM/DD/YYYY');
               let dateElement = document.createElement("p");
               dateElement.innerHTML = `Date: ${date}`;
               cardDiv.append(dateElement)
-          }
-          currentDate = forecastDate
-}
         let temp = forecast.main.temp;
         let tempElement = document.createElement("p");
         tempElement.innerHTML = `Temperature: ${temp}`;
