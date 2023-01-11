@@ -82,15 +82,12 @@ function getWeather(lat,lon){
         let forecast = weather.list[i];
         let cardDiv = document.querySelector(`#card${i}`)
        
-        let currentDate = new Date()
-        for (let i = 0; i < 5; i++) {
-          let forecast = weather.list[i];
-          let forecastDate = new Date(forecast.dt_txt);
-          let cardDiv = document.querySelector(`#card${i+1}`)
-              let date = dayjs(forecast.dt_txt).format('MM/DD/YYYY');
-              let dateElement = document.createElement("p");
-              dateElement.innerHTML = `Date: ${date}`;
-              cardDiv.append(dateElement)
+        let date = dayjs(forecast.dt_txt).format('MM/DD/YYYY');
+
+        let dateElement = document.createElement("p");
+        dateElement.innerHTML = `Date: ${date}`;
+        cardDiv.append(dateElement)
+
         let temp = forecast.main.temp;
         let tempElement = document.createElement("p");
         tempElement.innerHTML = `Temperature: ${temp}`;
