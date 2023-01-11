@@ -22,13 +22,91 @@
   body {
     margin: 0;
   }
-  
+  body{
+    background-color: rgb(153, 153, 153);
+}
+
+header {
+    height: 150px;
+    background-image: linear-gradient(to right, rgb(46, 75, 112), rgb(136, 136, 135));
+}
+
+header h1 {
+    font-family: 'Major Mono Display', monospace;
+}
+
+.error-msg {
+    color: red;
+    text-align: center;
+}
+
+
+.card {
+    border: solid 2px black
+    background-color: transparent;
+    height: 165px;
+}
+
+.mr-0{
+  display:flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+    background-color: rgb(194, 191, 191);
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 7px;
+    box-shadow: 5px 5px 3px grey;
+}
+.d-block{
+  padding: 5% 10px;
+  margin-left: 10%;
+}
+
+.card-title {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.card-icon {
+    text-align: center;
+    margin: 0 auto;
+}
+
+#current-weather {
+    background-color: white;
+    border: 3px solid rgb(31, 30, 30);
+    border-radius: 10px;
+    box-shadow: 5px 5px 3px grey;
+}
+#current-icon {
+  height: 40%;
+    text-align: center;
+}
+
+#current-icon img{
+    width: 100px;
+    height: 100px;
+}
+
+.search-btn {
+    color: white;
+    background-color: rgb(53, 55, 73);
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+    text-align: center;
+}
+
+.search-btn:hover {
+    background-color: rgb(38, 39, 53);
+}
   /**
    * Render the `main` element consistently in IE.
    */
   main {
     display: block;
-    color:white;
+    color:rgb(14, 1, 1);
   }
   
   /**
@@ -60,6 +138,20 @@
     align-items: flex-start;
     justify-content: left;
     width: 100%;
+  }
+  .card-icon{
+height: 40%;
+width: 40%
+  }
+  #forecast{
+display:inline-flex;
+flex-direction: row;
+flex-wrap: wrap;
+  line-height: 1;
+  }
+  .card-body{
+    display: inline-flex;
+    flex-direction: row;
   }
   /**
    * 1. Correct the inheritance and scaling of font size in all browsers.

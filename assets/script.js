@@ -2,8 +2,9 @@ let city = document.querySelector('#city-search');
 let submitBtn = document.querySelector('#submitbtn')
 const key = 'e16d7ce165cee00c3693cb78fb283a63';
 const error = document.querySelector("#error-container");
-let cities = [];
+let cities = JSON.parse(localStorage.getItem("cityButtons")) || [];
 let buttonsHTML = '';
+
 
 function getCity (event) {
   
@@ -21,28 +22,36 @@ function getCity (event) {
         error.innerHTML = "Please enter a city name!"
         return;
     }}
+    //button to click after entering city
 submitBtn.addEventListener('click', getCity);
 
-let storedCities2 = JSON.parse(localStorage.getItem("cityButtons")) || []
-    if (storedCities2.length) {
-        buttonsHTML = '';
-      storedCities2.forEach(function(cityName) {
-        buttonsHTML += `<button>${cityName}</button>`;
-      });
-      document.querySelector(".city").innerHTML = buttonsHTML;
-    }
-    document.querySelector(".city").addEventListener('click', function(event) {
-      if (event.target.tagName === 'BUTTON') {
-        getLat(event.target.innerHTML);
-      }
-    });
+if (cities.length) {
+  buttonsHTML = '';
+  cities.forEach(function(cityName) {
+    buttonsHTML += `<button class="city w-100 mb-3 btn btn-secondary">${cityName}</button>`;
 
-    function storedCities(cityName) {
-        if(!cities.includes(cityName)){
-            cities.push(cityName);
-            localStorage.setItem("cityButtons", JSON.stringify(cities));
-        }
-    }
+  });
+  document.querySelector(".city").innerHTML = buttonsHTML;
+}
+//add some buttons
+const cityEl = document.querySelector(".city");
+cityEl.addEventListener("click", function(event) {
+if (event.target.tagName === "BUTTON") {
+  getLat(event.target.innerHTML);
+}
+});
+//store the city
+function storedCities(cityName) {
+  if(!cities.includes(cityName)){
+      buttonsHTML += `<button class="city w-100 mb-3 btn btn-secondary">${cityName}</button>`;
+
+      document.querySelector(".city").innerHTML = buttonsHTML;
+      cities.push(cityName);
+      localStorage.setItem("cityButtons", JSON.stringify(cities));
+  }
+}
+//get lat and longitude
+
 function getLat(cityName) {
     
     fetch(`http://api.openweathermap.org/geo/1.0/direct?appid=${key}&q=${cityName}`
@@ -68,33 +77,39 @@ function getWeather(lat,lon){
   let forecastDiv = document.querySelector('.card-title')
   forecastDiv.innerHTML = '';
     //getting the Icon and make an image with it..
-    
-    for (let i = 1; i < 5; i++) {
+    console.log(weather)
+    for (let i = 1; i < 6; i++) {
         let forecast = weather.list[i];
-
-        let date = forecast.dt_txt;
-        let dateElement = document.createElement("p");
-        dateElement.innerHTML = `Date: ${date}`;
-        forecastDiv.appendChild(dateElement);
-
+        let cardDiv = document.querySelector(`#card${i}`)
+       
+        let currentDate = new Date()
+        for (let i = 0; i < 5; i++) {
+          let forecast = weather.list[i];
+          let forecastDate = new Date(forecast.dt_txt);
+          let cardDiv = document.querySelector(`#card${i+1}`)
+          if(forecastDate.getUTCDate() !== currentDate.getUTCDate()){
+              let date = dayjs(forecast.dt_txt).format('MM/DD/YYYY');
+              let dateElement = document.createElement("p");
+              dateElement.innerHTML = `Date: ${date}`;
+              cardDiv.append(dateElement)
+          }
+          currentDate = forecastDate
+}
         let temp = forecast.main.temp;
         let tempElement = document.createElement("p");
         tempElement.innerHTML = `Temperature: ${temp}`;
-        forecastDiv.appendChild(tempElement);
+        cardDiv.appendChild(tempElement);
 
         let humidity = forecast.main.humidity;
         let humidElement = document.createElement("p");
         humidElement.innerHTML = `Humidity: ${humidity}`;
-        forecastDiv.appendChild(humidElement);
+        cardDiv.appendChild(humidElement);
 
         let wind = forecast.wind.speed;
         let windElement = document.createElement("p");
         windElement.innerHTML = `Wind: ${wind}`;
-        forecastDiv.appendChild(windElement);
-       
-      
+        cardDiv.appendChild(windElement);
         let iconData = weather.list[i].weather[0].icon;
-       
         const iconBaseUrl = "http://openweathermap.org/img/wn/";
     document.querySelector(`#card${i}-icon`).src = `${iconBaseUrl}${iconData}@2x.png`;
 
